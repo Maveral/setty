@@ -12,6 +12,7 @@
 # Configure Using Gemfile
 # gem 'pg'
 #
+
 development:
   adapter: postgresql
   encoding: unicode
@@ -19,7 +20,7 @@ development:
   pool: 5
   username: Mario
   password: mietek84
-  host: 127.0.0.1
+  host: localhost
   port: 5432
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -43,15 +44,19 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: setty_test
+  database: setty
   pool: 5
-  username: setty
-  password:
+  username: Mario
+  password: mietek84
+  host: maveral.megiteam.pl
+  port: 5432
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: setty_production
+  database: pg_9643
   pool: 5
-  username: setty
-  password:
+  username: pg_9643a
+  password: mietek84
+  host: maveral.megiteam.pl
+  port: 5436
