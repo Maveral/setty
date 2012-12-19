@@ -16,4 +16,5 @@ class User < ActiveRecord::Base
   attr_accessible :about, :age, :name, :nick, :password
   
   validates :nick, :password, presence: true
+
 end
