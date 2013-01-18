@@ -1,5 +1,15 @@
 <h2>Update profile:</h2>
 <%= form_for(@user) do |f| %>
+<% if @user.errors.any? %>
+  <div id="errorExplanation">
+    <h2>Wystąpiły <%= @user.errors.count %> błędy:</h2>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li>Pole <%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
   <div>
     <%= f.label :nick %><br />
     <%= f.text_field :nick %>

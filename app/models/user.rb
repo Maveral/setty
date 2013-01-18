@@ -13,8 +13,9 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :about, :age, :name, :nick, :password
+  attr_accessible :about, :age, :name, :nick, :password, :password_confirmation
   
-  validates :nick, :password, presence: true
+  validates :nick, :password, :presence => true
+  validates :password, :confirmation => true
 
 end

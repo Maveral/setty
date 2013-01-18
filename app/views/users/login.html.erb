@@ -1,14 +1,29 @@
-<h2>Log in:</h2>
-<%= form_for(:users, :url => tryuser_path) do |f| %>
+<h1>Zaloguj się</h1>
+<%= form_for (@user), {:url => :auth_users} do |f| %>
+  <% if flash[:notice] %>
+  <div id="errorExplanation">
+    <h2><%= flash[:notice] %></h2>
+  </div>
+  <% end %>
+<% if @user.errors.any? %>
+  <div id="errorExplanation">
+    <h2>Popraw następujące błędy:</h2>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li>Pole <%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
   <div>
-    <%= f.label :nick %><br />
+    <%= f.label "Login" %><br />
     <%= f.text_field :nick %>
   </div>
   <div>
-    <%= f.label :password %><br />
+    <%= f.label "Hasło" %><br />
     <%= f.text_field :password %>
   </div>
   <div>
-    <%= f.submit %>
+    <%= f.submit t(:login) %>
   </div>
 <% end %>

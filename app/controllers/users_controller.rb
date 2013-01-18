@@ -10,16 +10,16 @@ class UsersController < ApplicationController
   end
   
   def new
-    #if !userlogged.nil? then redirect_to user_path(userlogged) end
+    if userlogged.nil? then redirect_to login_path end
     @user = User.new
   end
   
   def create
     @user = User.new(params[:user])
-    if @user.save
-      redirect_to @user
+    if !@user.valid? || !@user.save
+      render :new
     else
-      render 'new'
+      redirect_to user_path(@user)
     end
   end
   
@@ -43,17 +43,18 @@ class UsersController < ApplicationController
   end
   
   def login
-    if !userlogged.nil? then redirect_to user_path(userlogged) end
     @user = User.new
+    if !userlogged.nil? then redirect_to user_path(userlogged) end
   end
 
   def auth
-    @user = User.find_by_nick_and_password(params[:users][:nick], params[:users][:password])
-    if @user.nil?
-      render 'login'
-    else
+    @user = User.find_by_nick_and_password(params[:user][:nick], params[:user][:password])
+    if @user
       session[:user] = @user
       redirect_to users_path
+    else
+      redirect_to :login
+      flash[:notice] = t(:login_error)
     end
   end
   

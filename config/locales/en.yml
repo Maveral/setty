@@ -2,4 +2,24 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  edit: "Edytuj"
   hello: "Hello world"
+  login: "Zaloguj się"
+  login_error: "Nieprawidłowy login lub hasło"
+  logout: "Wyloguj się"
+  submit: "Wyślij"
+  activerecord:
+    attributes:
+      user:
+        nick: "Nick"
+        password: "Hasło"
+    errors:
+      template:
+        header:
+          one:   "Wykryto 1 błąd"
+          other: "Wykryto %{count} błędy"
+        body:    "Popraw następujące błędy:"
+      messages:
+        blank: "nie może być puste!"
+        too_short: "musi mieć co najmniej %{count} znaki"
+        confirmation: "nie pasuje do pola Powtórz hasło"

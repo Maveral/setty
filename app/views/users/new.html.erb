@@ -1,14 +1,28 @@
-<h2>Add a new user:</h2>
+<h1>Dodaj nowego członka:</h1>
 <%= form_for(@user) do |f| %>
+<% if @user.errors.any? %>
+  <div id="errorExplanation">
+    <h2>Popraw następujące błędy:</h2>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li>Pole <%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
   <div>
-    <%= f.label :nick %><br />
+    <%= f.label "Nick" %><br />
     <%= f.text_field :nick %>
   </div>
   <div>
-    <%= f.label :password %><br />
+    <%= f.label "Hasło" %><br />
     <%= f.text_field :password %>
   </div>
   <div>
-    <%= f.submit %>
+    <%= f.label "Powtórz hasło" %><br />
+    <%= f.text_field :password_confirmation %>
+  </div>
+  <div>
+    <%= f.submit t(:submit) %>
   </div>
 <% end %>

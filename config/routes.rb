@@ -1,8 +1,11 @@
 Setty::Application.routes.draw do
   
   root :to =>  "home#index"
-  resources :users
-  match 'tryuser' => "users#auth"
+  resources :users do
+    collection do
+      post "auth"
+    end
+  end
   match 'login' => "users#login"
   
   # The priority is based upon order of creation:
