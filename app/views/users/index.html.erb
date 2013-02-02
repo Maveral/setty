@@ -1,5 +1,7 @@
-<h1>Ekipa Ψ:</h1>
+<h1><%= t(:team_members) %></h1>
 <% @users.each do |u| %>
-<%= link_to u.nick, user_path(u.id) %>
-<br />
+<div class="nick-index">
+<%= link_to u.nick, user_path(u) %>
+</div>
 <% end %>
+<br />

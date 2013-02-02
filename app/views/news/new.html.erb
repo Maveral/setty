@@ -1,0 +1,29 @@
+<h1><%= t(:add_news) %></h1>
+<%= form_for @news do |f| %>
+<% if @news.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= t('activerecord.errors.template.header', :count => @news.errors.size) %></h2>
+    <ul>
+    <% @news.errors.full_messages.each do |msg| %>
+      <li>Pole <%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+  <div>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :category %><br />
+    <%= f.text_field :category %>
+  </div>
+  <div>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </div>
+  
+  <div>
+    <%= f.submit t(:submit) %>
+  </div>
+<% end %>

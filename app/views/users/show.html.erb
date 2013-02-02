@@ -18,10 +18,11 @@ text-decoration="underline">
 </svg>
 </center>
 <br /> -->
-<div id="canvas-container">
+
 <canvas id="myCanvas" width="1000px", height="60px"></canvas>
-</div>
+
     <script>
+    function onloaded() {
       var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
       context.font = "italic 36px 'Indie Flower'";
@@ -39,13 +40,14 @@ text-decoration="underline">
       context.fillStyle = grd;
       context.fillText("<%= @user.nick %>", canvas.width/2, 36);
       context.fill();
+     }
     </script>
 
 <br />
-Hasło: <%= @user.password %><br />
-Imię: <%= @user.name %><br />
-Wiek: <%= @user.age %><br />
-O sobie: <%= simple_format(@user.about) %><br />
+<%= t('activerecord.attributes.user.password') %>: <%= @user.password %><br />
+<%= t('activerecord.attributes.user.name') %>: <%= @user.name %><br />
+<%= t('activerecord.attributes.user.age') %>: <%= @user.age %><br />
+<%= t('activerecord.attributes.user.about') %>: <%= simple_format(@user.about) %><br />
 <% if userlogged && userlogged.id == @user.id %>
-	<%= link_to t(:edit), edit_user_path(@user.id) %>
+	<%= link_to t(:edit), edit_user_path(@user) %>
 <% end %>

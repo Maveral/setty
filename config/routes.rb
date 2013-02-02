@@ -6,6 +6,7 @@ Setty::Application.routes.draw do
       post "auth"
     end
   end
+  resources :news
   match 'login' => "users#login"
   
   # The priority is based upon order of creation:

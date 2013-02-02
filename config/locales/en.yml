@@ -2,18 +2,36 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  add_new_member: "Dodaj nowego członka"
   edit: "Edytuj"
   hello: "Hello world"
   login: "Zaloguj się"
-  login_error: "Nieprawidłowy login lub hasło"
+  login_error: "Nieprawidłowy nick lub hasło"
   logout: "Wyloguj się"
+  made_by: "Wykonanie"
   submit: "Wyślij"
+  team_members: "Ekipa Ψ"
+  news: "Co w trawie piszczy?"
+  add_news: "Dodaj newsa"
+  title: "Ψ jest wszystkim"
+  edit_user: "Edycja danych"
+  math_captcha_label: "Udowodnij, że jesteś człowiekiem (wynik zaokrąglij do 2 lub, jeśli to możliwe, do 1 miejsca po przecinku)"
   activerecord:
     attributes:
       user:
+        about: "O sobie"
+        age: "Wiek"
+        name: "Imię"
         nick: "Nick"
         password: "Hasło"
+        password_confirmation: "Potwtórz hasło"
+        result: "Wynik"
     errors:
+      models:
+        user:
+          attributes:
+            result:
+              confirmation: "zawiera niepoprawne rozwiązanie"
       template:
         header:
           one:   "Wykryto 1 błąd"
@@ -21,5 +39,6 @@ en:
         body:    "Popraw następujące błędy:"
       messages:
         blank: "nie może być puste!"
-        too_short: "musi mieć co najmniej %{count} znaki"
         confirmation: "nie pasuje do pola Powtórz hasło"
+        too_short: "musi mieć co najmniej %{count} znaki"
+        taken: "pokrywa się z nickiem innego użytkownika"

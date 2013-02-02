@@ -1,8 +1,8 @@
-<h2>Update profile:</h2>
+<h1><%= t(:edit_user) %></h1>
 <%= form_for(@user) do |f| %>
 <% if @user.errors.any? %>
   <div id="errorExplanation">
-    <h2>Wystąpiły <%= @user.errors.count %> błędy:</h2>
+    <h2><%= t('activerecord.errors.template.header', :count => @user.errors.size) %></h2>
     <ul>
     <% @user.errors.full_messages.each do |msg| %>
       <li>Pole <%= msg %></li>
@@ -16,7 +16,7 @@
   </div>
   <div>
     <%= f.label :password %><br />
-    <%= f.text_field :password %>
+    <%= f.password_field :password, :value => @user.password %>
   </div>
   <div>
     <%= f.label :name %><br />
@@ -24,13 +24,13 @@
   </div>
   <div>
     <%= f.label :age %><br />
-    <%= f.text_field :age %>
+    <%= f.number_field :age %>
   </div>
   <div>
     <%= f.label :about %><br />
     <%= f.text_area :about %>
   </div>
   <div>
-    <%= f.submit %>
+    <%= f.submit t(:edit) %>
   </div>
 <% end %>

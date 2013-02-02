@@ -1,8 +1,8 @@
-<h1>Dodaj nowego członka:</h1>
+<h1><%= t(:add_new_member) %></h1>
 <%= form_for(@user) do |f| %>
 <% if @user.errors.any? %>
   <div id="errorExplanation">
-    <h2>Popraw następujące błędy:</h2>
+    <h2><%= t('activerecord.errors.template.header', :count => @user.errors.size) %></h2>
     <ul>
     <% @user.errors.full_messages.each do |msg| %>
       <li>Pole <%= msg %></li>
@@ -11,16 +11,34 @@
   </div>
   <% end %>
   <div>
-    <%= f.label "Nick" %><br />
+    <%= f.label :nick %><br />
     <%= f.text_field :nick %>
   </div>
   <div>
-    <%= f.label "Hasło" %><br />
-    <%= f.text_field :password %>
+    <%= f.label :password %><br />
+    <%= f.password_field :password, :value => @user.password %>
   </div>
   <div>
-    <%= f.label "Powtórz hasło" %><br />
-    <%= f.text_field :password_confirmation %>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, :value => @user.password_confirmation %>
+  </div><br />
+  <div>
+  	<%= f.label t(:math_captcha_label) %><br />
+	<math style="font-family: 'Indie Flower';">
+		<mrow> 
+			<mfrac>
+				<mi> <%= @numbers[0] %> </mi>
+				<mi> <%= @numbers[1] %> </mi>
+			</mfrac>
+			<mo><%= @symbol %></mo>
+			<mfrac>
+				<mi> <%= @numbers[2] %> </mi>
+				<mi> <%= @numbers[3] %> </mi>
+			</mfrac>
+	      	<mo>=</mo>
+		</mrow>
+	</math>
+	<%= f.number_field :result, :step => 0.01 %>
   </div>
   <div>
     <%= f.submit t(:submit) %>

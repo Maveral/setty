@@ -1,0 +1,8 @@
+<h1><%= t(:news) %></h1>
+<% @news.each do |u| %>
+<div>
+<h2><%= u.title %> - <%= u.category %></h2>
+<%= simple_format(u.content) %><br />
+</div>
+<% end %>
+<br />
