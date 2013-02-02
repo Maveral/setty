@@ -48,15 +48,15 @@ test:
   pool: 5
   username: Mario
   password: mietek84
-  host: maveral.megiteam.pl
+  host: localhost
   port: 5432
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: pg_9643
+  database: setty
   pool: 5
-  username: pg_9643a
+  username: setty
   password: mietek84
-  host: maveral.megiteam.pl
+  host: localhost
   port: 5436
