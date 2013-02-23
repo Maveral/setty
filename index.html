@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Rails poradnik by Maveral</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Rails poradnik</h1>
+        <p>Poradnik Ruby on Rails dla świerzaków</p>
+        <p class="view"><a href="https://github.com/Maveral/setty">View the Project on GitHub <small>Maveral/setty</small></a></p>
+        <ul>
+          <li><a href="https://github.com/Maveral/setty/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Maveral/setty/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Maveral/setty">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>Welcome to GitHub Pages.</h3>
+
+<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">'xmpp4r'</span>
+<span class="nb">require</span> <span class="s1">'xmpp4r/roster/helper/roster'</span>
+<span class="nb">require</span> <span class="s1">'xmpp4r/vcard/helper/vcard'</span>
+<span class="nb">require</span> <span class="s1">'mechanize'</span>
+<span class="nb">require</span> <span class="s1">'thread'</span>
+<span class="kp">include</span> <span class="no">Jabber</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+<span class="n">a</span><span class="o">.</span><span class="n">agent</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">verify_mode</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">SSL</span><span class="o">::</span><span class="no">VERIFY_NONE</span>
+<span class="n">page</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://quakelive.com/login"</span><span class="p">)</span>
+<span class="n">form</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">form</span>
+<span class="n">form</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s1">'franke.mariusz@gmail.com'</span>
+<span class="n">form</span><span class="o">.</span><span class="n">pass</span> <span class="o">=</span> <span class="s1">'lol'</span>
+<span class="n">page</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">form</span><span class="p">,</span> <span class="n">form</span><span class="o">.</span><span class="n">buttons</span><span class="o">.</span><span class="n">first</span><span class="p">)</span>
+<span class="n">page</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://www.quakelive.com/user/load"</span><span class="p">)</span><span class="o">.</span><span class="n">body</span>
+
+<span class="n">xaid</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sr">/.*XAID":"(\w*)"/</span><span class="p">)</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+
+<span class="nb">puts</span> <span class="n">xaid</span>
+
+<span class="n">jid</span> <span class="o">=</span> <span class="no">Jabber</span><span class="o">::</span><span class="no">JID</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">"Ruby@xmpp.quakelive.com/quakelive"</span><span class="p">)</span>
+<span class="n">cl</span> <span class="o">=</span> <span class="no">Jabber</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span>
+<span class="n">cl</span><span class="o">.</span><span class="n">connect</span>
+<span class="n">cl</span><span class="o">.</span><span class="n">auth</span><span class="p">(</span><span class="n">xaid</span><span class="p">)</span>
+
+<span class="n">roster</span> <span class="o">=</span> <span class="no">Jabber</span><span class="o">::</span><span class="no">Roster</span><span class="o">::</span><span class="no">Helper</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">cl</span><span class="p">)</span>
+
+<span class="c1"># Callback to handle updated roster items</span>
+<span class="n">roster</span><span class="o">.</span><span class="n">add_update_callback</span> <span class="p">{</span> <span class="o">|</span><span class="n">olditem</span><span class="p">,</span><span class="n">item</span><span class="o">|</span>
+  <span class="k">if</span> <span class="o">[</span><span class="ss">:from</span><span class="p">,</span> <span class="ss">:none</span><span class="o">].</span><span class="n">include?</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">subscription</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">item</span><span class="o">.</span><span class="n">ask</span> <span class="o">!=</span> <span class="ss">:subscribe</span>
+    <span class="nb">puts</span><span class="p">(</span><span class="s2">"Subscribing to </span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">jid</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">item</span><span class="o">.</span><span class="n">subscribe</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Print the item</span>
+  <span class="k">if</span> <span class="n">olditem</span><span class="o">.</span><span class="n">nil?</span>
+    <span class="c1"># We didn't knew before:</span>
+    <span class="nb">puts</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">iname</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">jid</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">subscription</span><span class="si">}</span><span class="s2">) </span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">', '</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+  <span class="k">else</span>
+    <span class="c1"># Showing whats different:</span>
+    <span class="nb">puts</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="n">olditem</span><span class="o">.</span><span class="n">iname</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">olditem</span><span class="o">.</span><span class="n">jid</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="n">olditem</span><span class="o">.</span><span class="n">subscription</span><span class="si">}</span><span class="s2">) </span><span class="si">#{</span><span class="n">olditem</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">', '</span><span class="p">)</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">iname</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">jid</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">subscription</span><span class="si">}</span><span class="s2">) </span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">', '</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="c1"># If the item has no name associated...</span>
+  <span class="k">unless</span> <span class="n">item</span><span class="o">.</span><span class="n">iname</span>
+    <span class="no">Thread</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+      <span class="nb">puts</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">jid</span><span class="si">}</span><span class="s2"> has no nickname... getting vCard"</span><span class="p">)</span>
+      <span class="k">begin</span>
+        <span class="c1"># ...get a vCard</span>
+        <span class="n">vcard</span> <span class="o">=</span> <span class="no">Jabber</span><span class="o">::</span><span class="no">Vcard</span><span class="o">::</span><span class="no">Helper</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">cl</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">jid</span><span class="o">.</span><span class="n">strip</span><span class="p">)</span>
+
+        <span class="k">unless</span> <span class="n">vcard</span><span class="o">.</span><span class="n">nil?</span>
+          <span class="c1"># Rename him to vCard's &lt;NICKNAME/&gt; field</span>
+          <span class="k">if</span> <span class="n">vcard</span><span class="o">[</span><span class="s1">'NICKNAME'</span><span class="o">]</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">iname</span> <span class="o">=</span> <span class="n">vcard</span><span class="o">[</span><span class="s1">'NICKNAME'</span><span class="o">]</span>
+            <span class="nb">puts</span><span class="p">(</span><span class="s2">"Renaming </span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">jid</span><span class="si">}</span><span class="s2"> to </span><span class="si">#{</span><span class="n">vcard</span><span class="o">[</span><span class="s1">'NICKNAME'</span><span class="o">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">send</span>
+          <span class="c1"># Rename him to vCard's &lt;FN/&gt; field</span>
+          <span class="k">elsif</span> <span class="n">vcard</span><span class="o">[</span><span class="s1">'FN'</span><span class="o">]</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">iname</span> <span class="o">=</span> <span class="n">vcard</span><span class="o">[</span><span class="s1">'FN'</span><span class="o">]</span>
+            <span class="nb">puts</span><span class="p">(</span><span class="s2">"Renaming </span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">jid</span><span class="si">}</span><span class="s2"> to </span><span class="si">#{</span><span class="n">vcard</span><span class="o">[</span><span class="s1">'FN'</span><span class="o">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">send</span>
+          <span class="c1"># We've got a lazy one</span>
+          <span class="k">else</span>
+            <span class="nb">puts</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">jid</span><span class="si">}</span><span class="s2"> provided no details in vCard"</span><span class="p">)</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+
+      <span class="k">rescue</span> <span class="no">Exception</span> <span class="o">=&gt;</span> <span class="n">e</span>
+        <span class="c1"># This will be (mostly) thrown by Jabber::Vcard::Helper#get</span>
+        <span class="nb">puts</span><span class="p">(</span><span class="s2">"Error getting vCard for </span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">jid</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">e</span><span class="o">.</span><span class="n">to_s</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="p">}</span>
+
+<span class="c1"># Presence updates:</span>
+<span class="n">roster</span><span class="o">.</span><span class="n">add_presence_callback</span> <span class="p">{</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span><span class="n">oldpres</span><span class="p">,</span><span class="n">pres</span><span class="o">|</span>
+  <span class="c1"># Can't look for something that just does not exist...</span>
+  <span class="k">if</span> <span class="n">pres</span><span class="o">.</span><span class="n">nil?</span>
+    <span class="c1"># ...so create it:</span>
+    <span class="n">pres</span> <span class="o">=</span> <span class="no">Jabber</span><span class="o">::</span><span class="no">Presence</span><span class="o">.</span><span class="n">new</span>
+  <span class="k">end</span>
+  <span class="k">if</span> <span class="n">oldpres</span><span class="o">.</span><span class="n">nil?</span>
+    <span class="c1"># ...so create it:</span>
+    <span class="n">oldpres</span> <span class="o">=</span> <span class="no">Jabber</span><span class="o">::</span><span class="no">Presence</span><span class="o">.</span><span class="n">new</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Print name and jid:</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"</span><span class="si">#{</span><span class="n">pres</span><span class="o">.</span><span class="n">from</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">iname</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"</span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">iname</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">pres</span><span class="o">.</span><span class="n">from</span><span class="si">}</span><span class="s2">)"</span>
+  <span class="k">end</span>
+  <span class="nb">puts</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+
+  <span class="c1"># Print type changes:</span>
+  <span class="k">unless</span> <span class="n">oldpres</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">nil?</span> <span class="o">&amp;&amp;</span> <span class="n">pres</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">nil?</span>
+    <span class="nb">puts</span><span class="p">(</span><span class="s2">"  Type: </span><span class="si">#{</span><span class="n">oldpres</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">#{</span><span class="n">pres</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="c1"># Print show changes:</span>
+  <span class="k">unless</span> <span class="n">oldpres</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">nil?</span> <span class="o">&amp;&amp;</span> <span class="n">pres</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">nil?</span>
+    <span class="nb">puts</span><span class="p">(</span><span class="s2">"  Show:     </span><span class="si">#{</span><span class="n">oldpres</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">#{</span><span class="n">pres</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="c1"># Print status changes:</span>
+  <span class="k">unless</span> <span class="n">oldpres</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">nil?</span> <span class="o">&amp;&amp;</span> <span class="n">pres</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">nil?</span>
+    <span class="nb">puts</span><span class="p">(</span><span class="s2">"  Status:   </span><span class="si">#{</span><span class="n">oldpres</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">#{</span><span class="n">pres</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="c1"># Print priority changes:</span>
+  <span class="k">unless</span> <span class="n">oldpres</span><span class="o">.</span><span class="n">priority</span><span class="o">.</span><span class="n">nil?</span> <span class="o">&amp;&amp;</span> <span class="n">pres</span><span class="o">.</span><span class="n">priority</span><span class="o">.</span><span class="n">nil?</span>
+    <span class="nb">puts</span><span class="p">(</span><span class="s2">"  Priority: </span><span class="si">#{</span><span class="n">oldpres</span><span class="o">.</span><span class="n">priority</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">#{</span><span class="n">pres</span><span class="o">.</span><span class="n">priority</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Note: presences with type='error' will reflect our own show/status/priority</span>
+  <span class="c1"># as it is mostly just a reply from a server. This is *not* a bug.</span>
+<span class="p">}</span>
+
+<span class="c1"># Subscription requests and responses:</span>
+<span class="n">subscription_callback</span> <span class="o">=</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span><span class="n">pres</span><span class="o">|</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="n">pres</span><span class="o">.</span><span class="n">from</span>
+  <span class="k">if</span> <span class="n">item</span> <span class="o">!=</span> <span class="kp">nil</span> <span class="o">&amp;&amp;</span> <span class="n">item</span><span class="o">.</span><span class="n">iname</span> <span class="o">!=</span> <span class="kp">nil</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"</span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">iname</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">pres</span><span class="o">.</span><span class="n">from</span><span class="si">}</span><span class="s2">)"</span>
+  <span class="k">end</span>
+  <span class="k">case</span> <span class="n">pres</span><span class="o">.</span><span class="n">type</span>
+    <span class="k">when</span> <span class="ss">:subscribe</span> <span class="k">then</span> <span class="nb">puts</span><span class="p">(</span><span class="s2">"Subscription request from </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">when</span> <span class="ss">:subscribed</span> <span class="k">then</span> <span class="nb">puts</span><span class="p">(</span><span class="s2">"Subscribed to </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">when</span> <span class="ss">:unsubscribe</span> <span class="k">then</span> <span class="nb">puts</span><span class="p">(</span><span class="s2">"Unsubscription request from </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">when</span> <span class="ss">:unsubscribed</span> <span class="k">then</span> <span class="nb">puts</span><span class="p">(</span><span class="s2">"Unsubscribed from </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">else</span> <span class="k">raise</span> <span class="s2">"The Roster Helper is buggy!!! subscription callback with type=</span><span class="si">#{</span><span class="n">pres</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+<span class="p">}</span>
+<span class="n">roster</span><span class="o">.</span><span class="n">add_subscription_callback</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">subscription_callback</span><span class="p">)</span>
+<span class="n">roster</span><span class="o">.</span><span class="n">add_subscription_request_callback</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">subscription_callback</span><span class="p">)</span>
+
+<span class="c1"># Send initial presence</span>
+<span class="c1"># this is important for receiving presence of subscribed users</span>
+<span class="n">cl</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="no">Jabber</span><span class="o">::</span><span class="no">Presence</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">set_show</span><span class="p">(</span><span class="ss">:dnd</span><span class="p">)</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="s1">'Watching my roster change...'</span><span class="p">))</span>
+
+<span class="c1"># Main loop:</span>
+<span class="no">Thread</span><span class="o">.</span><span class="n">stop</span>
+
+<span class="n">cl</span><span class="o">.</span><span class="n">close</span>
+</pre></div>
+
+<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+
+<h3>Designer Templates</h3>
+
+<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+
+<h3>Rather Drive Stick?</h3>
+
+<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+
+<h3>Authors and Contributors</h3>
+
+<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+
+<h3>Support or Contact</h3>
+
+<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/Maveral">Maveral</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
