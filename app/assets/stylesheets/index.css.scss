@@ -1,4 +1,5 @@
 @mixin linear-gradient($direction, $first-color, $second-color, $third-color) {
+  background: #000000;
   background: -webkit-linear-gradient($direction, $first-color, $second-color, $third-color);
   background: -moz-linear-gradient($direction, $first-color, $second-color, $third-color);
   background: -ms-linear-gradient($direction, $first-color, $second-color, $third-color);
@@ -18,12 +19,24 @@
   border-radius: $radius;
 }
 
+@mixin corner-image {
+  width: 100px; height: 175px;
+  position: absolute;
+  background-image: url("herb.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 body {
   background-color: black;
   margin: 0 auto;
   font-family: 'Indie Flower';
   font-weight: bold;
   @include linear-gradient(left, #000000, #FFFF00, #000000);
+}
+
+body.mceContentBody {
+   align: center;
 }
 
 //Menu & footer
@@ -75,8 +88,36 @@ footer {
 //Text format
 h1 {
   color: #FFCC00;
-  margin: 0;
+  margin: 0 0 5px 0;
   text-align: center;
+}
+
+h2 {
+  color: #FFCC00;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+h4 {
+  color: #FFCC00;
+  text-align: center;
+  margin: 0 20px;
+  padding: 0;
+}
+
+h5 {
+  display: inline;
+  color: #FFCC00;
+  float: right;
+  text-align: right;
+  margin: 0 20px;
+  padding: 0;
+}
+
+strong {
+  text-decoration: underline;
+  text-decoration-color: red;
 }
 
 //Links
@@ -100,6 +141,12 @@ a#logo-link {
   background-color: transparent;
 }
 
+a.news-panel {
+  display: inline;
+  margin: 0;
+  padding: 20px;
+}
+
 //Containers
 div#logo {
   width: 1024px;
@@ -112,7 +159,8 @@ div#logo {
 }
 
 div#content {
-  background-color: black;
+  position: relative;
+  text-align: center;
   font-size: 20px;
   color: white;
   width: 1004px;
@@ -123,31 +171,132 @@ div#content {
   border-left: 1px solid #FFCC00;
   border-right: 1px solid #FFCC00;
   border-top: 1px solid #FFCC00;
+  @include linear-gradient(top, #000000, #222222, #000000);
   
   canvas {
     text-align: center;
   }
   
   div.nick-index {
-    float: left;
-    display: inline;
-    line-height: 350%;
+    display: inline-block;
+    line-height: 400%;
     text-align: center;
-    font-size: 24px;
-    width: 300px;
+    width: 230px;
     height: 81px;
     margin: 15px;
     border: 1px solid #FFCC00;
+    background-color: #000000;
     @include border-radius(40px);
-    @include linear-gradient(left, #000000, #2F4F4F, #000000);
+    @include box-shadow(10px, 10px, 5px, #000000);
+    
+    img.image-index {
+      width: 50px;
+      height: 50px;
+      vertical-align: -15%;
+    }
     
     &:hover {
-      @include box-shadow(0, 0, 25px, #FFFF00);
+      box-shadow: 0 0 25px #FFFF00, 20px 20px 5px #000000;
+      -webkit-box-shadow: 0 0 25px #FFFF00, 20px 20px 5px #000000;
+      -moz-box-shadow: 0 0 25px #FFFF00, 20px 20px 5px #000000;
       border-color: #FFFF00;
     }
     
   }
   
+  div.user-title-data {
+    @extend div.nick-index;
+    width: 400px;
+    height: 70px;
+    @include box-shadow(20px, 20px, 5px, #000000);
+  }
+  
+  div.user-data {
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    font-size: 24px;
+    padding: 5px 25px;
+    width: 350px;
+    margin: 0 15px;
+    border: 1px solid #FFCC00;
+    background-color: #000000;
+    @include box-shadow(20px, 20px, 5px, #000000);
+    @include border-radius(40px);
+  }
+  
+  div.news {
+    text-align: left;
+    width: 80%;
+    border: 1px solid #FFFF00;
+    margin: 40px auto;
+    padding: 0 15px;
+    background-color: #000000;
+    @include box-shadow(30px, 30px, 5px, #000000);
+    @include border-radius(40px);
+    
+    hr.news {
+      width: 100%;
+      color: #FFFF00;
+      background-color: #FFFF00;
+      height: 1px;
+      border: 0;
+    }
+  }
+  
+  div.news-center {
+    @extend div.news;
+    text-align: center;
+    width: 70%;
+  }
+  
+  div.pagination {
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  div#upper-left {
+    top: 10px;
+    left: 10px;
+    @include corner-image;
+  }
+  
+  div#upper-right {
+    top: 10px;
+    right: 10px;
+    @include corner-image;
+  }
+
+/*  Maybe I will use it
+  div#lower-left {
+    bottom: 0%;
+    left: 0;
+    @include corner-image;
+  }
+  
+  div#lower-right {
+    bottom: 0%;
+    right: 0%;
+    @include corner-image;
+  }
+*/
+
+  img#show-avatar {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+}
+
+form {
+  div {
+    margin: 5px 0;
+  }
+  div.inline {
+    @extend div;
+    display: inline-block;
+  }
 }
 
 div#errorExplanation {
@@ -156,15 +305,19 @@ div#errorExplanation {
   width: 500px;
   margin: 10px auto;
   padding: 0 10px;
-  
-  h2 {
-    text-align: center;
-  }
-  
+  text-align: left;
+}
+
+div.center {
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 //Forms elements
 input, textarea {
+  width: 150px;
+  background-color: #FFFFFF;
   padding: 5px;
   font-size: 15px;
   text-shadow: 0px 1px 0px #fff;
@@ -176,6 +329,22 @@ input, textarea {
   &:focus {
     @include box-shadow(0, 0, 5px, #FFFF00);
   }
+}
+
+select {
+  @extend input;
+  width: 140px;
+}
+
+input[type="submit"] {
+  @extend input;
+  width: 60px;
+}
+
+input.title {
+  @extend input;
+  width: 350px;
+  font-size: 24px;
 }
 
 .field_with_errors {

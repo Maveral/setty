@@ -1,36 +1,60 @@
-<h1><%= t(:edit_user) %></h1>
-<%= form_for(@user) do |f| %>
-<% if @user.errors.any? %>
-  <div id="errorExplanation">
-    <h2><%= t('activerecord.errors.template.header', :count => @user.errors.size) %></h2>
-    <ul>
-    <% @user.errors.full_messages.each do |msg| %>
-      <li>Pole <%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
+<h1><%= t(:user_edit) %></h1>
+<%= javascript_tag do %>
+  window.avatar_number = <%= @user.avatar %>;
 <% end %>
-  <div>
-    <%= f.label :nick %><br />
-    <%= f.text_field :nick %>
-  </div>
-  <div>
+<%= render "layouts/form_errors", :object => @user %>
+<div class="news-center">
+  <h2>Zmiana hasła</h2>
+  <hr class="news">
+<%= form_for(@user) do |f| %>
+  <div class="inline">
     <%= f.label :password %><br />
     <%= f.password_field :password, :value => @user.password %>
   </div>
-  <div>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div>
-    <%= f.label :age %><br />
-    <%= f.number_field :age %>
-  </div>
-  <div>
-    <%= f.label :about %><br />
-    <%= f.text_area :about %>
+  <div class="inline">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, :value => @user.password_confirmation %>
   </div>
   <div>
     <%= f.submit t(:edit) %>
   </div>
 <% end %>
+</div>
+<div class="news-center">
+  <h2>Zmiana danych</h2>
+  <hr class="news">
+<%= form_for(@user) do |f| %>
+  <div id="obrazek">
+  </div>
+  <div>
+  <%= link_to "Poprzednie", "#/", :id => "prev" %> || <%= link_to "Następne", "#/", :id => "next" %>
+    <%= f.hidden_field :avatar, :value => @user.avatar.nil? ? 1 : @user.avatar, :id => "avatar_field" %>
+  </div>
+  <div class="inline">
+    <%= f.label :nick %><br />
+    <%= f.text_field :nick %>
+  </div>
+  <div class="inline">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="inline">
+    <%= f.label :age %><br />
+    <%= f.number_field :age %>
+  </div>
+  <% if userlogged && userlogged.admin? %>
+  <div>
+    <%= f.label :role %><br />
+    <%= f.select :role, User.getRole %>
+  </div>
+  <% end %>
+  <div class="center">
+    <%= f.label :about %><br />
+    <%= f.text_area :about, :class => "tinymce" %>
+    <%= tinymce %>
+  </div>
+  <div>
+    <%= f.submit t(:edit) %>
+  </div>
+<% end %>
+</div>

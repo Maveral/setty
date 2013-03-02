@@ -1,0 +1,7 @@
+theme : "simple"
+mode : "textareas"
+language : "pl"
+keep_styles : "false"
+width: "400px"
+text_size: "14px"
+content_css: "/assets/tinymce.css"

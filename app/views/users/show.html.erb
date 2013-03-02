@@ -19,6 +19,7 @@ text-decoration="underline">
 </center>
 <br /> -->
 
+<%= image_tag('http://static3.thesettlersonline.pl/sites/default/themes/siedler/images/landing/avatar/big/' + @user.avatar.to_s + '.png', :id => 'show-avatar') %>
 <canvas id="myCanvas" width="1000px", height="60px"></canvas>
 
     <script>
@@ -32,10 +33,10 @@ text-decoration="underline">
       // create radial gradient
       var grd = context.createLinearGradient((canvas.width - textWidth.width)/2,0,(textWidth.width + (canvas.width - textWidth.width)/2)+25,0);
       // light blue
-      grd.addColorStop(0, '#000000');
+      grd.addColorStop(0, '#222200');
       // dark blue
       grd.addColorStop(.7, '#FFFF00');
-      grd.addColorStop(.9, '#000000');
+      grd.addColorStop(.9, '#222200');
 
       context.fillStyle = grd;
       context.fillText("<%= @user.nick %>", canvas.width/2, 36);
@@ -44,10 +45,25 @@ text-decoration="underline">
     </script>
 
 <br />
-<%= t('activerecord.attributes.user.password') %>: <%= @user.password %><br />
-<%= t('activerecord.attributes.user.name') %>: <%= @user.name %><br />
-<%= t('activerecord.attributes.user.age') %>: <%= @user.age %><br />
-<%= t('activerecord.attributes.user.about') %>: <%= simple_format(@user.about) %><br />
-<% if userlogged && userlogged.id == @user.id %>
-	<%= link_to t(:edit), edit_user_path(@user) %>
+<% if userlogged && (userlogged.id == @user.id || userlogged.admin?) %>
+       <%= link_to t(:edit), edit_user_path(@user) %><br />
 <% end %>
+<div class="user-title-data">
+<h2><%= t(:data) %></h2>
+</div>
+<div class="user-title-data">
+<h2><%= t('activerecord.attributes.user.about') %></h2>
+</div>
+<br />
+<br />
+<div class="user-data">
+<p>
+<%= t('activerecord.attributes.user.password') + ": #{@user.password}" %><br />
+<%= t('activerecord.attributes.user.name') + ": #{@user.name}" %><br />
+<%= t('activerecord.attributes.user.age') + ": #{@user.age}" %><br />
+<%= t('activerecord.attributes.user.role') %>: <%= t('symbol_' + @user.role) %><br />
+</p>
+</div>
+<div class="user-data">
+<%= raw(@user.about) %>
+</div>

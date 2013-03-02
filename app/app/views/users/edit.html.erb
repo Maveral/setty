@@ -1,0 +1,43 @@
+<h1><%= t(:user_edit) %></h1>
+<%= javascript_tag do %>
+  window.avatar_number = <%= @user.avatar %>;
+<% end %>
+<%= form_for(@user) do |f| %>
+<%= render "layouts/form_errors", :object => @user %>
+  <div id="obrazek">
+  </div>
+  <%= link_to "Poprzednie", "#/", :id => "prev" %> || <%= link_to "Następne", "#/", :id => "next" %>
+  <div>
+    <%= f.hidden_field :avatar, :value => @user.avatar.nil? ? 1 : @user.avatar, :id => "avatar_field" %>
+  </div>
+  <div>
+    <%= f.label :nick %><br />
+    <%= f.text_field :nick %>
+  </div>
+  <div>
+    <%= f.label :password %><br />
+    <%= f.password_field :password, :value => @user.password %>
+  </div>
+  <div>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :age %><br />
+    <%= f.number_field :age %>
+  </div>
+  <% if userlogged && userlogged.admin? %>
+  <div>
+    <%= f.label :role %><br />
+    <%= f.select :role, User.getRole %>
+  </div>
+  <% end %>
+  <div class="center">
+    <%= f.label :about %><br />
+    <%= f.text_area :about, :class => "tinymce" %>
+    <%= tinymce %>
+  </div>
+  <div>
+    <%= f.submit t(:edit) %>
+  </div>
+<% end %>

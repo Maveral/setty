@@ -1,21 +1,30 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
   add_new_member: "Dodaj nowego członka"
+  data: "Dane"
+  delete: "Usuń"
   edit: "Edytuj"
+  game_news: "Wieści z gry"
   hello: "Hello world"
+  left_member: "Odejście członka"
   login: "Zaloguj się"
   login_error: "Nieprawidłowy nick lub hasło"
   logout: "Wyloguj się"
   made_by: "Wykonanie"
-  submit: "Wyślij"
-  team_members: "Ekipa Ψ"
-  news: "Co w trawie piszczy?"
-  add_news: "Dodaj newsa"
-  title: "Ψ jest wszystkim"
-  edit_user: "Edycja danych"
   math_captcha_label: "Udowodnij, że jesteś człowiekiem (wynik zaokrąglij do 2 lub, jeśli to możliwe, do 1 miejsca po przecinku)"
+  new_member: "Nowy członek"
+  news: "Co w trawie piszczy?"
+  news_add: "Dodaj newsa"
+  news_edit: "Edytuj newsa"
+  notice: "Ogłoszenie"
+  submit: "Wyślij"
+  symbol_admin: "Ψ"
+  symbol_mod: "Ψ •"
+  symbol_user: "Ψ ••"
+  symbol_test: "Ψ •••"
+  team_members: "Ekipa Ψ"
+  title: "Ψ jest wszystkim"
+  urgent: "Pilne!"
+  user_edit: "Edycja danych"
   activerecord:
     attributes:
       user:
@@ -26,12 +35,18 @@ en:
         password: "Hasło"
         password_confirmation: "Potwtórz hasło"
         result: "Wynik"
+        role: "Rola"
+      news:
+        category: "Kategoria"
+        content: "Treść"
+        title: "Tytuł newsa"
     errors:
       models:
         user:
           attributes:
             result:
               confirmation: "zawiera niepoprawne rozwiązanie"
+          role: "nie może zostać zmienione ponieważ w tej chwili jesteś jedynym adminem"
       template:
         header:
           one:   "Wykryto 1 błąd"
@@ -40,5 +55,14 @@ en:
       messages:
         blank: "nie może być puste!"
         confirmation: "nie pasuje do pola Powtórz hasło"
-        too_short: "musi mieć co najmniej %{count} znaki"
         taken: "pokrywa się z nickiem innego użytkownika"
+        too_short: "musi mieć co najmniej %{count} znaki"
+  date:
+    formats:
+      default: "%d - %m - %Y"
+      long: "%B %d, %Y"
+      short: "%d - %m - %Y"
+  will_paginate:
+    previous_label: "Poprzednia"
+    next_label: "Następna"
+    page_gap: "&hellip;"

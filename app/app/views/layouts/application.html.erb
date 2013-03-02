@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= t(:title) %></title>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Indie+Flower">
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body onload="onloaded()" >
+<nav>
+<div id="menu-left">
+<%= link_to "O nas", root_path, :class => 'menu-link' %> || 
+<%= link_to "Co w trawie piszczy", news_index_path, :class => 'menu-link' %> || 
+<%= link_to "Połączone umysły", users_path, :class => 'menu-link' %> || 
+<%= link_to "Utoń w Ψ", "#", :class => 'menu-link' %> || 
+<%= link_to "Forum", "#", :class => 'menu-link' %> || 
+<%= link_to "Linki", "#", :class => 'menu-link' %>
+</div>
+<div id="menu-right">
+<% if !userlogged.nil? %>
+<%= link_to userlogged.nick, user_path(userlogged), :class => 'login-link' %> || <%= link_to t(:logout), userlogged, :confirm => "Jesteś pewien?", :method => :delete, :class => 'login-link' %>
+<% else %>
+<%= link_to t(:login), login_path, :class => 'login-link' %>
+<% end %>
+</div>
+</nav>
+<div id="logo">
+	<%= link_to "", root_path, :id => 'logo-link' %>
+</div>
+<div id="content">
+    <div id="upper-left"></div>
+    <div id="upper-right"></div>
+    <!-- Maybe I will use it 
+    <div id="lower-left"></div>
+    <div id="lower-right"></div>
+    -->
+<%= yield %>
+<%= debug(params) if Rails.env.development? %><br />
+<%= debug(session) if Rails.env.development? %>
+<br />
+</div>
+<footer>
+	© 2012 - <%= Time.now.year %> <%= t(:made_by) %> Maverral & Reni :)
+</footer>
+</body>
+</html>

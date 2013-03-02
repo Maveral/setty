@@ -1,0 +1,19 @@
+<h1><%= t(:login) %></h1>
+<%= form_for (@user), {:url => :auth_users} do |f| %>
+  <% if flash[:notice] %>
+  <div id="errorExplanation">
+    <h2><%= flash[:notice] %></h2>
+  </div>
+  <% end %>
+  <div>
+    <%= f.label :nick %><br />
+    <%= f.text_field :nick %>
+  </div>
+  <div>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div>
+    <%= f.submit t(:login) %>
+  </div>
+<% end %>

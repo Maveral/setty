@@ -1,0 +1,20 @@
+<h1><%= t(:news) %></h1>
+<%= will_paginate @news %><br />
+<% if userlogged && userlogged.admin? %>
+<%= link_to t(:news_add), new_news_path %>
+<% end %>
+<% @news.each do |u| %>
+<div class="news">
+<h2><%= u.title %></h2>
+<h4><%= u.category %></h4>
+<hr class="news">
+<%= simple_format(u.content) %><br />
+<% if userlogged && userlogged.admin_or_mod? %>
+    <%= link_to t(:delete), u,:confirm => "Jesteś pewien?", :method => "delete" %>
+<% end %>
+<% if u.user.present? %>
+    <h5><%= u.updated_at.strftime("%d-%m-%Y") %></h5>
+<% end %>
+</div>
+<% end %>
+<br />

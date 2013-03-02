@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :logged?, :except => [:login, :auth, :index, :show, :create]
+  before_filter :logged?, :except => [:login, :auth, :index, :show]
+  before_filter :admin_user_permission?, :only => [:new, :create]
   
   def index
     @users = User.find(:all, :order => :nick)
@@ -10,7 +11,6 @@ class UsersController < ApplicationController
   end
   
   def new
-    #if userlogged.nil? then redirect_to login_path end
     @user = User.new
     math_captcha
   end
@@ -30,21 +30,22 @@ class UsersController < ApplicationController
   
   def edit
     @user = User.find(params[:id])
-    if @user != userlogged then redirect_to user_path(@user) end
+    if @user != userlogged then redirect_to user_path(@user) unless userlogged.admin? end
   end
   
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      session[:user] = @user
-      redirect_to user_path(@user)
-    else
-      render 'edit'
-    end
+      if @user.update_attributes(params[:user])
+        if userlogged.nick == @user.nick then session[:user] = @user end #zeby haslo pasowalo
+        redirect_to user_path(@user)
+      else
+        render 'edit'
+      end
+    #end
   end
   
   def destroy
-    session[:user] = nil
+    session[:user], session[:back] = nil, nil
     redirect_to users_path
   end
   
@@ -57,7 +58,7 @@ class UsersController < ApplicationController
     @user = User.find_by_nick_and_password(params[:user][:nick], params[:user][:password])
     if @user
       session[:user] = @user
-      redirect_to users_path
+      session[:back] ? (redirect_to session[:back]) : (redirect_to user_path(@user))
     else
       redirect_to :login
       flash[:notice] = t(:login_error)
