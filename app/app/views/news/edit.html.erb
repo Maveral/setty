@@ -1,8 +1,0 @@
-<h1><%= t(:news_edit) %></h1>
-<%= form_for @news do |f| %>
-<%= render "layouts/form_errors", :object => @news %>
-<%= render "form_body", :f => f %>
-  <div>
-    <%= f.submit t(:edit) %>
-  </div>
-<% end %>
