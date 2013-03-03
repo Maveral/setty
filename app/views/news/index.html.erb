@@ -1,6 +1,6 @@
 <h1><%= t(:news) %></h1>
 <%= will_paginate @news %><br />
-<% if userlogged && userlogged.admin? %>
+<% if userlogged && userlogged.admin_or_mod? %>
 <%= link_to t(:news_add), new_news_path %>
 <% end %>
 <% @news.each do |u| %>

@@ -11,6 +11,7 @@ class NewsController < ApplicationController
   end
 
   def create
+    params[:news][:user_id] = userlogged.id
     @news = News.new(params[:news])
     if !@news.valid? || !@news.save
       render :new
