@@ -24,12 +24,15 @@
   <h2>Zmiana danych</h2>
   <hr class="news">
 <%= form_for(@user) do |f| %>
-  <div id="obrazek">
-  </div>
   <div>
-  <%= link_to "Poprzednie", "#/", :id => "prev" %> || <%= link_to "Następne", "#/", :id => "next" %>
+  <%= t(:avatar) %>
     <%= f.hidden_field :avatar, :value => @user.avatar.nil? ? 1 : @user.avatar, :id => "avatar_field" %>
   </div>
+  <%= link_to "&lArr;".html_safe, "#/", :id => "prev" %>
+  <div id="obrazek">
+  </div>
+  <%= link_to "&rArr;".html_safe, "#/", :id => "next" %>
+  <br />
   <div class="inline">
     <%= f.label :nick %><br />
     <%= f.text_field :nick %>

@@ -116,8 +116,7 @@ h5 {
 }
 
 strong {
-  text-decoration: underline;
-  text-decoration-color: FF0000;
+  color: #FFFF00;
 }
 
 //Links
@@ -145,6 +144,12 @@ a.news-panel {
   display: inline;
   margin: 0;
   padding: 20px;
+}
+
+a#prev, a#next {
+  display: inline;
+  font-size: 36px;
+  vertical-align: 55px;
 }
 
 //Containers
@@ -253,6 +258,10 @@ div#content {
   div.pagination {
     margin: 0 auto;
     text-align: center;
+  }
+  
+  div#obrazek {
+    display: inline;
   }
   
   div#upper-left {
