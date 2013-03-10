@@ -36,6 +36,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
       if @user.update_attributes(params[:user])
+        userlogged = @user
         if userlogged.nick == @user.nick then session[:user] = @user end #zeby haslo pasowalo
         redirect_to user_path(@user)
       else
