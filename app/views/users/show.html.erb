@@ -58,7 +58,9 @@ text-decoration="underline">
 <br />
 <div class="user-data">
 <p>
+<% if userlogged && userlogged.admin? %>
 <%= t('activerecord.attributes.user.password') + ": #{@user.password}" %><br />
+<% end %>
 <%= t('activerecord.attributes.user.name') + ": #{@user.name}" %><br />
 <%= t('activerecord.attributes.user.age') + ": #{@user.age}" %><br />
 <%= t('activerecord.attributes.user.role') %>: <%= t('symbol_' + @user.role) %><br />

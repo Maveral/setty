@@ -1,0 +1,8 @@
+<h1>LINKI</h1>
+<br />
+<% @links.each do |link| %>
+    <% @arr = link.split(';') %>
+    <div class="links-index">
+        <%= link_to @arr[1], @arr[0] %><br />
+    </div>
+<% end %>

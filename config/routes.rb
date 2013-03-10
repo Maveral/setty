@@ -8,6 +8,7 @@ Setty::Application.routes.draw do
   end
   resources :news, except: :show
   match 'login' => "users#login"
+  match 'links' => "links#index"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -177,7 +177,7 @@ div#content {
   border-right: 1px solid #FFCC00;
   border-top: 1px solid #FFCC00;
   @include linear-gradient(top, #000000, #222222, #000000);
-  
+
   canvas {
     text-align: center;
   }
@@ -207,6 +207,11 @@ div#content {
       border-color: #FFFF00;
     }
     
+  }
+  
+  div.links-index {
+    @extend div.nick-index;
+    width: 60%;
   }
   
   div.user-title-data {
@@ -347,7 +352,7 @@ select {
 
 input[type="submit"] {
   @extend input;
-  width: 80px;
+  width: 100px;
 }
 
 input.title {
