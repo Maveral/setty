@@ -1,3 +1,9 @@
+<% if flash[:notice] %>
+  <div id="flash">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
 <% if object.errors.any? %>
   <div id="errorExplanation">
     <h2><%= t('activerecord.errors.template.header', :count => object.errors.size) %></h2>

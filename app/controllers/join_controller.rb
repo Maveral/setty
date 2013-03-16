@@ -15,7 +15,7 @@ class JoinController < ApplicationController
       render :new
     else
       JoinMailer.join_email(@newguy).deliver
-      redirect_to new_join_path
+      redirect_to new_join_path, flash: {notice: t(:mail_success)}
     end
   end
 end

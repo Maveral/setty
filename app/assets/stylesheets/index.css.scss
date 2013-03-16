@@ -322,6 +322,11 @@ div#errorExplanation {
   text-align: left;
 }
 
+div#flash {
+  @extend div#errorExplanation;
+  border: 3px dotted #FFFF00;
+}
+
 div.center {
   width: 800px;
   margin: 0 auto;
