@@ -32,6 +32,7 @@ gem 'thin'
 gem 'will_paginate', '~> 3.0'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
+gem 'browser'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

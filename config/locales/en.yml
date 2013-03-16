@@ -13,7 +13,7 @@ en:
   logout: "Wyloguj się"
   made_by: "Wykonanie"
   mail_success: "Twoje zgłoszenie zostało wysłane pomyślnie :)"
-  math_captcha_label: "Udowodnij, że jesteś człowiekiem (wynik zaokrąglij do 2 lub, jeśli to możliwe, do 1 miejsca po przecinku)"
+  math_captcha_label: "Udowodnij, że jesteś człowiekiem (wynik zaokrąglij do 2 lub jeśli to możliwe, do 1 miejsca po przecinku)"
   new_member: "Nowy członek"
   news: "Co w trawie piszczy?"
   news_add: "Dodaj newsa"

@@ -21,6 +21,7 @@
   <br />
   <div>
     <%= f.label t(:math_captcha_label) %><br />
+    <% if browser.opera? || browser.firefox? %>
     <math style="font-family: 'Indie Flower';">
         <mrow> 
             <mfrac>
@@ -35,6 +36,9 @@
             <mo>=</mo>
         </mrow>
     </math>
+    <% else %>
+    (<%= @numbers[0] %> / <%= @numbers[1] %>) <%= @symbol %> (<%= @numbers[2] %> / <%= @numbers[3] %>) = 
+    <% end %>
     <%= f.number_field :result, :step => 0.01 %>
   </div>
   <div>
