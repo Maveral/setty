@@ -1,5 +1,5 @@
 <h1><%= t(:apply) %></h1>
-<%= form_for @newguy, :url => { :controller => "join", :action => "create" } do |f| %>
+<%= form_for @newguy, :url => join_index_path do |f| %>
 <%= render "layouts/form_errors", :object => @newguy %>
   <div class="inline">
     <%= f.label :nick %><br />
