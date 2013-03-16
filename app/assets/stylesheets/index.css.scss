@@ -323,13 +323,13 @@ div#errorExplanation {
 }
 
 div.center {
-  width: 400px;
+  width: 800px;
   margin: 0 auto;
   text-align: center;
 }
 
 //Forms elements
-input, textarea {
+input {
   width: 150px;
   background-color: #FFFFFF;
   padding: 5px;
@@ -343,6 +343,12 @@ input, textarea {
   &:focus {
     @include box-shadow(0, 0, 5px, #FFFF00);
   }
+}
+
+textarea {
+  @extend input;
+  width: 600px;
+  height: 150px;
 }
 
 select {

@@ -7,6 +7,7 @@ Setty::Application.routes.draw do
     end
   end
   resources :news, except: :show
+  resources :join, only: [:new, :create]
   match 'login' => "users#login"
   match 'links' => "links#index"
   

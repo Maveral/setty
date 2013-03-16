@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Nowy aplikant zgłosił chęć przystąpienia do psi!</h1>
+    <p>
+        Nick: <%= @newguy.nick %><br />
+        Imię: <%= @newguy.name %><br />
+        Wiek: <%= @newguy.age %><br />
+        O sobie:<br />
+        <%= simple_format(@newguy.about) %>
+    </p>
+  </body>
+</html>

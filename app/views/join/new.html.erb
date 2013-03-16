@@ -1,0 +1,43 @@
+<h1><%= t(:application) %></h1>
+<%= form_for @newguy, :url => { :controller => "join", :action => "create" } do |f| %>
+<%= render "layouts/form_errors", :object => @newguy %>
+  <div class="inline">
+    <%= f.label :nick %><br />
+    <%= f.text_field :nick %>
+  </div>
+  <div class="inline">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="inline">
+    <%= f.label :age %><br />
+    <%= f.number_field :age %>
+  </div>
+  <br />
+  <div class="center">
+    <%= f.label :about %><br />
+    <%= f.text_area :about %>
+  </div>
+  <br />
+  <div>
+    <%= f.label t(:math_captcha_label) %><br />
+    <math style="font-family: 'Indie Flower';">
+        <mrow> 
+            <mfrac>
+                <mi> <%= @numbers[0] %> </mi>
+                <mi> <%= @numbers[1] %> </mi>
+            </mfrac>
+            <mo><%= @symbol %></mo>
+            <mfrac>
+                <mi> <%= @numbers[2] %> </mi>
+                <mi> <%= @numbers[3] %> </mi>
+            </mfrac>
+            <mo>=</mo>
+        </mrow>
+    </math>
+    <%= f.number_field :result, :step => 0.01 %>
+  </div>
+  <div>
+    <%= f.submit t(:submit) %>
+  </div>
+<% end %>
