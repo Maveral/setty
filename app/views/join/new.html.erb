@@ -1,4 +1,7 @@
 <h1><%= t(:apply) %></h1>
+<div class="news">
+<h4>Jeśli chcesz dołączyć do Ψ, wypełnij poniższy formularz lub skontaktuj się z nami w grze :)</h4>
+</div>
 <%= form_for @newguy, :url => join_index_path do |f| %>
 <%= render "layouts/form_errors", :object => @newguy %>
   <div class="inline">

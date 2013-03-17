@@ -6,6 +6,7 @@ class JoinController < ApplicationController
   
   def create
     params[:user][:result_confirmation] = session[:captcha_result]
+    if params[:user][:result].include?(",") then params[:user][:result] = params[:user][:result].gsub(",", ".") end
     params[:user][:result] = params[:user][:result].to_f
     params[:user][:password] = "psi"
     @newguy = User.new(params[:user])
