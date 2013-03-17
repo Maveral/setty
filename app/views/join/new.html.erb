@@ -42,7 +42,7 @@
     <% else %>
     (<%= @numbers[0] %> / <%= @numbers[1] %>) <%= @symbol %> (<%= @numbers[2] %> / <%= @numbers[3] %>) = 
     <% end %>
-    <%= f.number_field :result, :step => 0.01 %>
+    <%= f.text_field :result %>
   </div>
   <div>
     <%= f.submit t(:submit) %>
