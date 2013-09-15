@@ -44,13 +44,18 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    session[:user], session[:back] = nil, nil
+    User.find(params[:id]).destroy
     redirect_to users_path
   end
   
   def login
     @user = User.new
     if userlogged then redirect_to user_path(userlogged) end
+  end
+  
+  def logout
+    session[:user], session[:back] = nil, nil
+    redirect_to users_path
   end
 
   def auth

@@ -32,7 +32,7 @@ body {
   margin: 0 auto;
   font-family: 'Indie Flower';
   font-weight: bold;
-  @include linear-gradient(left, #000000, #FFFF00, #000000);
+  @include linear-gradient(left, #000000, #FF0000, #000000);
 }
 
 body.mceContentBody {
@@ -325,12 +325,6 @@ div#errorExplanation {
 div#flash {
   @extend div#errorExplanation;
   border: 3px dotted #FFFF00;
-}
-
-div.center {
-  width: 800px;
-  margin: 0 auto;
-  text-align: center;
 }
 
 //Forms elements

@@ -46,7 +46,8 @@ text-decoration="underline">
 
 <br />
 <% if userlogged && (userlogged.id == @user.id || userlogged.admin?) %>
-       <%= link_to t(:edit), edit_user_path(@user) %><br />
+       <%= link_to t(:edit), edit_user_path(@user) %> || 
+       <%= link_to t(:delete), @user,:confirm => "Jesteś pewien?", :method => "delete" %><br />
 <% end %>
 <div class="user-title-data">
 <h2><%= t(:data) %></h2>

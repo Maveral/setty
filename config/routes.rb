@@ -9,6 +9,7 @@ Setty::Application.routes.draw do
   resources :news, except: :show
   resources :join, only: [:new, :create]
   match 'login' => "users#login"
+  match 'logout' => "users#logout"
   match 'links' => "links#index"
   
   # The priority is based upon order of creation:
