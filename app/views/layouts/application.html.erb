@@ -23,7 +23,7 @@
         </div>
         <div id="menu-right">
         <% if !userlogged.nil? %>
-            <%= link_to userlogged.nick, user_path(userlogged), :class => 'login-link' %> || <%= link_to t(:logout), userlogged, :confirm => "Jesteś pewien?", :method => :delete, :class => 'login-link' %>
+            <%= link_to userlogged.nick, user_path(userlogged), :class => 'login-link' %> || <%= link_to t(:logout), logout_path, :confirm => "Jesteś pewien?", :class => 'login-link' %>
         <% else %>
             <%= link_to t(:login), login_path, :class => 'login-link' %>
         <% end %>
